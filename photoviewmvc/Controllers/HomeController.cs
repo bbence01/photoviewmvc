@@ -18,7 +18,7 @@ namespace photoviewmvc.Controllers
 
         public IActionResult Index()
         {
-            var jpgFiles = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath), "*.jpg")
+            var jpgFiles = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath, "Pictures"), "*.jpg")
                                     .Select(Path.GetFileName)
                                     .ToList();
 
