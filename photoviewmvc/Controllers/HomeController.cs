@@ -18,12 +18,14 @@ namespace photoviewmvc.Controllers
 
         public IActionResult Index()
         {
-            var jpgFiles = Directory.EnumerateFiles(Path.Combine(_hostingEnvironment.WebRootPath, "Pictures"), "*.jpg")
+            var picturePath = @".\wwwroot\\Pictures\\";
+            var jpgFiles = Directory.EnumerateFiles(picturePath, "*.jpg")
                                     .Select(Path.GetFileName)
                                     .ToList();
 
             return View(jpgFiles);
         }
+
 
         public IActionResult Privacy()
         {
