@@ -1,9 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using photoviewmvc.Models;
 using System.Diagnostics;
-
+using System.IO;
+using System.Collections.Generic;
 namespace photoviewmvc.Controllers
 {
+    public class ImageModel
+    {
+        public string FilePath { get; set; }
+    }
+
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -18,12 +25,16 @@ namespace photoviewmvc.Controllers
 
         public IActionResult Index()
         {
-            var picturePath = @".\wwwroot\\Pictures\\";
-            var jpgFiles = Directory.EnumerateFiles(picturePath, "*.jpg")
-                                    .Select(Path.GetFileName)
-                                    .ToList();
+            var imageFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Pictures");
+            var imageFiles = Directory.EnumerateFiles(imageFolder, "*.jpg");
 
-            return View(jpgFiles);
+            var images = new List<ImageModel>();
+            foreach (var file in imageFiles)
+            {
+                images.Add(new ImageModel { FilePath = Path.GetFileName(file) });
+            }
+
+            return View(images);
         }
 
 

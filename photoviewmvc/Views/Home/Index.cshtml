@@ -1,13 +1,21 @@
-﻿@model List<string>
-<div class="container">
+﻿@model IEnumerable<photoviewmvc.Controllers.ImageModel>
+@{
+    ViewData["Title"] = "Image Gallery";
+}
+
+<div class="container mt-3">
     <div class="row">
         @foreach (var image in Model)
         {
             <div class="col-md-4">
                 <div class="card">
-                    <img class="card-img-top" src="@Url.Content("~/Pictures/" + image)" alt="Image">
+                    <img src="@Url.Content($"~/Pictures/{image.FilePath}")" class="card-img-top" alt="Image">
+                    <div class="card-body">
+                        <p class="card-text">Some details about the image if needed</p>
+                    </div>
                 </div>
             </div>
         }
     </div>
 </div>
+
